@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>静心</title>
+  <title>林鼠小窝</title>
   
-  
+  <subtitle>不能记住过去的人，被判重复过去。</subtitle>
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-02-07T14:40:56.566Z</updated>
+  <updated>2018-03-31T07:25:30.327Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,20 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>毕设日志-2018/3/31</title>
+    <link href="http://yoursite.com/2018/03/31/%E6%AF%95%E8%AE%BE%E6%97%A5%E5%BF%97-2018-3-31/"/>
+    <id>http://yoursite.com/2018/03/31/毕设日志-2018-3-31/</id>
+    <published>2018-03-31T07:25:30.000Z</published>
+    <updated>2018-03-31T07:25:30.327Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>ubuntu git环境搭建以及通过SSH连接Github（免密码）配置</title>
