@@ -333,9 +333,9 @@
       
         
           
-            <h2 id="毕设日志-2018-3-31"><a href="#毕设日志-2018-3-31" class="headerlink" title="#毕设日志-2018/3/31"></a>#毕设日志-2018/3/31</h2><p>毕设中趟过很多坑，一方面老师要求记录，另一方面也作为自己的前车之辙。<br>立个规矩，每天记日志，将零散的知识做个记录，每周整理一下，看能否成文一篇博客。</p>
-<p>##1. pymysql</p>
-<ol>
+            <h1 id="毕设日志-2018-3-31"><a href="#毕设日志-2018-3-31" class="headerlink" title="毕设日志-2018/3/31"></a>毕设日志-2018/3/31</h1><hr>
+<p>毕设中趟过很多坑，一方面老师要求记录，另一方面也作为自己的前车之辙。<br>立个规矩，每天记日志，将零散的知识做个记录，每周整理一下，看能否成文一篇博客。</p>
+<h2 id="1-pymysql"><a href="#1-pymysql" class="headerlink" title="1. pymysql"></a>1. pymysql</h2><ol>
 <li><code>pymysql.connect()</code> 函数接受 <code>autocommit</code> 参数，默认为 <code>False</code> ,需要显示提交<code>conn.commit()</code></li>
 <li><code>with pymysql.connect(..) as cursor:</code> 返回的值是 <code>Cursor</code> 实例，且会自动提交修改。</li>
 <li>防止sql注入–参数化查询：<code>cursor.execute(sql,(a,b,c))</code>, sql中无论参数类型，一律用%s占位，函数会根据参数类型自动转化，如None–&gt;NULL</li>
@@ -343,7 +343,7 @@
 <li><strong>当结果集很大时，为避免内存被撑爆</strong>，可以在连接时设置游标类型，使用流式游标<code>SSCursor</code>: <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pymysql</span><br><span class="line"><span class="keyword">import</span> pymysql.cursors</span><br><span class="line"></span><br><span class="line">conn = pymysql.connect(....cursorclass=pymysql.cursors.SSDictCursor)  <span class="comment"># 重点在这</span></span><br><span class="line">cursor = conn.cursor()</span><br><span class="line">cursor.execute(sql)</span><br><span class="line"></span><br><span class="line">result = cursor.fetchone()  <span class="comment"># 调用方法 </span></span><br><span class="line"><span class="keyword">while</span> result:</span><br><span class="line">    deal(result)</span><br><span class="line">    result = cursor.fetchone()</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
-<p>##2. scrapy<br>有点无从下手，实在是有点大，接触还是很浅，等我的全网爬虫完成后再写这块吧。</p>
+<h2 id="2-scrapy"><a href="#2-scrapy" class="headerlink" title="2. scrapy"></a>2. scrapy</h2><p>有点无从下手，实在是有点大，接触还是很浅，等我的全网爬虫完成后再写这块吧。</p>
 <hr>
 <p><em>今天就先到这，没有及时记录，很多东西都忘掉了=。=</em></p>
 
