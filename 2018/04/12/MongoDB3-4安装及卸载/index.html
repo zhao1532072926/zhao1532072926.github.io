@@ -89,7 +89,7 @@
 <meta property="og:site_name" content="林鼠小窝">
 <meta property="og:description" content="安装MongoDB3.41. 导入包管理系统使用的公钥   Ubuntu 的软件包管理工具（即dpkg和APT）要求软件包的发布者通过GPG密钥签名来确保软件包的一致性和真实性。通过以下命令导入MongoDB公共GPG密钥：    sudo apt-key adv –keyserver hkp://keyserver.ubuntu.com:80 –recv 0C49F3730359A1451858">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-04-12T04:53:52.188Z">
+<meta property="og:updated_time" content="2018-04-12T04:56:12.016Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MongoDB3.4安装及卸载">
 <meta name="twitter:description" content="安装MongoDB3.41. 导入包管理系统使用的公钥   Ubuntu 的软件包管理工具（即dpkg和APT）要求软件包的发布者通过GPG密钥签名来确保软件包的一致性和真实性。通过以下命令导入MongoDB公共GPG密钥：    sudo apt-key adv –keyserver hkp://keyserver.ubuntu.com:80 –recv 0C49F3730359A1451858">
@@ -337,18 +337,19 @@
 <p><strong>2. 创建list file</strong><br>根据 Ubuntu 的版本使用适当的命令创建 list file: /etc/apt/sources.list.d/mongodb-org-3.4.list</p>
 <p>  ubuntu14.04<br>    echo “deb [ arch=amd64 ] <a href="http://repo.mongodb.org/apt/ubuntu" target="_blank" rel="noopener">http://repo.mongodb.org/apt/ubuntu</a> trusty/mongodb-org/3.4 multiverse” | sudo tee /etc/apt/sources.list.d/mongodb-org-3.4.list</p>
 <p>  ubuntu16.04<br>    echo “deb [ arch=amd64,arm64 ] <a href="http://repo.mongodb.org/apt/ubuntu" target="_blank" rel="noopener">http://repo.mongodb.org/apt/ubuntu</a> xenial/mongodb-org/3.4 multiverse” | sudo tee /etc/apt/sources.list.d/mongodb-org-3.4.list</p>
-<p><strong>3. 重新下载本地包数据库索引</strong><br>    sudo apt-get update</p>
-<p><strong>4. 安装 MongoDB</strong><br>    sudo apt-get install -y mongodb-org</p>
-<h3 id="运行MongoDB"><a href="#运行MongoDB" class="headerlink" title="运行MongoDB"></a>运行MongoDB</h3><p><strong>测试MongoDB shell</strong><br>命令行运行命令：<br>    mongo<br><strong>启动MongoDB</strong><br>    sudo service mongod start</p>
+<p><strong>3. 重新下载本地包数据库索引</strong><br>    <code>sudo apt-get update</code></p>
+<p><strong>4. 安装 MongoDB</strong><br>    <code>sudo apt-get install -y mongodb-org</code></p>
+<h3 id="运行MongoDB"><a href="#运行MongoDB" class="headerlink" title="运行MongoDB"></a>运行MongoDB</h3><p><strong>测试MongoDB shell</strong><br>命令行运行命令：<br>    <code>mongo</code><br><strong>启动MongoDB</strong><br>    <code>sudo service mongod start</code></p>
 <pre><code># 或者
-sudo systemctl start mongod
+`sudo systemctl start mongod`
 </code></pre><p> 注意：1、mongodb3.4安装完是自动运行的，不必自己手动启动；2、仔细看上述命令，是<code>mongod</code>，不是<code>mongodb</code></p>
-<p><strong>关闭MongoDB</strong><br>    sudo service mongod stop</p>
-<p><strong>重启MongoDB</strong><br>    sudo service mongod restart</p>
-<p><strong>查看MongoDB情况</strong><br>    sudo service mongod status</p>
-<h2 id="卸载MongoDB"><a href="#卸载MongoDB" class="headerlink" title="卸载MongoDB"></a>卸载MongoDB</h2><p> <strong>1. 关闭MongoDB</strong><br>    sudo service mongod stop</p>
-<p> <strong>2. 删除所有相关软件包</strong><br>    sudo apt-get purge mongodb-org<em><br>注意：末尾的```</em>```不要漏下</p>
-<p> <strong>3. 删除数据和日志目录</strong><br>    sudo rm -r /var/log/mongodb<br>    sudo rm -r /var/lib/mongodb</p>
+<p><strong>关闭MongoDB</strong><br>    <code>sudo service mongod stop</code></p>
+<p><strong>重启MongoDB</strong><br>    <code>sudo service mongod restart</code></p>
+<p><strong>查看MongoDB情况</strong><br>    <code>sudo service mongod status</code></p>
+<h2 id="卸载MongoDB"><a href="#卸载MongoDB" class="headerlink" title="卸载MongoDB"></a>卸载MongoDB</h2><p> <strong>1. 关闭MongoDB</strong><br>    <code>sudo service mongod stop</code></p>
+<p> <strong>2. 删除所有相关软件包</strong><br>    <code>sudo apt-get purge mongodb-org*</code><br>注意：末尾的<code>*</code>不要漏下</p>
+<p> <strong>3. 删除数据和日志目录</strong><br>    <code>sudo rm -r /var/log/mongodb
+    sudo rm -r /var/lib/mongodb</code></p>
 <p>感谢大拿：<br><a href="https://buzheng.org/2017/20170118-install-mongodb-on-ubuntu.html" target="_blank" rel="noopener">https://buzheng.org/2017/20170118-install-mongodb-on-ubuntu.html</a></p>
 
       

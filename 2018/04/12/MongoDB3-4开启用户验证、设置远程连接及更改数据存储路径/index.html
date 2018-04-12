@@ -81,18 +81,18 @@
 
 
 
-<meta name="description" content="3.4版本的mongodb配置文件为/etc/mongod.conf，格式是yaml。点击查看官方文档 开启用户验证点击查看官方指南1. 添加用户启动mongodb：    mongod 启动mongodb shell    mongo添加用户：    use admin    db.createUser(      {        user: “myUserAdmin”,        pwd">
+<meta name="description" content="3.4版本的mongodb配置文件为/etc/mongod.conf，格式是yaml。点击查看官方文档 开启用户验证点击查看官方指南1. 添加用户启动mongodb：    mongod 启动mongodb shell    mongo添加用户：    admin1234567db.createUser(  &amp;#123;    user: &amp;quot;myUserAdmin&amp;quot;,    p">
 <meta name="keywords" content="mongodb, mongo, 访问控制">
 <meta property="og:type" content="article">
 <meta property="og:title" content="MongoDB3.4开启用户验证、设置远程连接及更改数据存储路径">
 <meta property="og:url" content="http://yoursite.com/2018/04/12/MongoDB3-4开启用户验证、设置远程连接及更改数据存储路径/index.html">
 <meta property="og:site_name" content="林鼠小窝">
-<meta property="og:description" content="3.4版本的mongodb配置文件为/etc/mongod.conf，格式是yaml。点击查看官方文档 开启用户验证点击查看官方指南1. 添加用户启动mongodb：    mongod 启动mongodb shell    mongo添加用户：    use admin    db.createUser(      {        user: “myUserAdmin”,        pwd">
+<meta property="og:description" content="3.4版本的mongodb配置文件为/etc/mongod.conf，格式是yaml。点击查看官方文档 开启用户验证点击查看官方指南1. 添加用户启动mongodb：    mongod 启动mongodb shell    mongo添加用户：    admin1234567db.createUser(  &amp;#123;    user: &amp;quot;myUserAdmin&amp;quot;,    p">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-04-12T04:52:28.812Z">
+<meta property="og:updated_time" content="2018-04-12T04:57:12.425Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MongoDB3.4开启用户验证、设置远程连接及更改数据存储路径">
-<meta name="twitter:description" content="3.4版本的mongodb配置文件为/etc/mongod.conf，格式是yaml。点击查看官方文档 开启用户验证点击查看官方指南1. 添加用户启动mongodb：    mongod 启动mongodb shell    mongo添加用户：    use admin    db.createUser(      {        user: “myUserAdmin”,        pwd">
+<meta name="twitter:description" content="3.4版本的mongodb配置文件为/etc/mongod.conf，格式是yaml。点击查看官方文档 开启用户验证点击查看官方指南1. 添加用户启动mongodb：    mongod 启动mongodb shell    mongo添加用户：    admin1234567db.createUser(  &amp;#123;    user: &amp;quot;myUserAdmin&amp;quot;,    p">
 
 
 
@@ -334,21 +334,19 @@
 
       
         <p>3.4版本的mongodb配置文件为<code>/etc/mongod.conf</code>，格式是yaml。<a href="https://docs.mongodb.com/manual/reference/configuration-options/#storage-options" target="_blank" rel="noopener">点击查看官方文档</a></p>
-<h2 id="开启用户验证"><a href="#开启用户验证" class="headerlink" title="开启用户验证"></a>开启用户验证</h2><p><a href="https://docs.mongodb.com/manual/tutorial/enable-authentication/" target="_blank" rel="noopener">点击查看官方指南</a><br><strong>1. 添加用户</strong><br>启动mongodb：<br>    mongod</p>
-<p>启动mongodb shell<br>    mongo<br>添加用户：<br>    use admin<br>    db.createUser(<br>      {<br>        user: “myUserAdmin”,<br>        pwd: “abc123”,<br>        roles: [ { role: “userAdminAnyDatabase”, db: “admin” } ]<br>      }<br>    )</p>
+<h2 id="开启用户验证"><a href="#开启用户验证" class="headerlink" title="开启用户验证"></a>开启用户验证</h2><p><a href="https://docs.mongodb.com/manual/tutorial/enable-authentication/" target="_blank" rel="noopener">点击查看官方指南</a><br><strong>1. 添加用户</strong><br>启动mongodb：<br>    <code>mongod</code></p>
+<p>启动mongodb shell<br>    <code>mongo</code><br>添加用户：<br>    <figure class="highlight plain"><figcaption><span>admin</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">db.createUser(</span><br><span class="line">  &#123;</span><br><span class="line">    user: &quot;myUserAdmin&quot;,</span><br><span class="line">    pwd: &quot;abc123&quot;,</span><br><span class="line">    roles: [ &#123; role: &quot;userAdminAnyDatabase&quot;, db: &quot;admin&quot; &#125; ]</span><br><span class="line">  &#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure></p>
 <p><strong>2. 更改配置文件</strong></p>
-<p>在配置文件中将</p>
-<pre><code>#security: 
-</code></pre><p>中的<code>#</code>去掉，并在其下一行，空两个空格，加上<code>authorization: enabled</code>，如下<br>    security:<br>      authorization: enabled<br>注意：<code>authorization: enabled</code>中冒号后加一个空格，这是yaml语法所要求的</p>
-<p><strong>3. 重启mongodb数据库</strong><br>    sudo service mongod restart<br>注意：命令中是<code>mongod</code>，不是<code>mongodb</code></p>
+<p>在配置文件中将<br>    <code>#security:</code><br>中的<code>#</code>去掉，并在其下一行，空两个空格，加上<code>authorization: enabled</code>，如下<br>    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">authorization: enabled</span><br></pre></td></tr></table></figure></p>
+<p>注意：<code>authorization: enabled</code>中冒号后加一个空格，这是yaml语法所要求的</p>
+<p><strong>3. 重启mongodb数据库</strong><br>    <code>sudo service mongod restart</code><br>注意：命令中是<code>mongod</code>，不是<code>mongodb</code></p>
 <h2 id="设置远程连接"><a href="#设置远程连接" class="headerlink" title="设置远程连接"></a>设置远程连接</h2><p>注意：老版本的图形界面管理软件可能不支持新版本的数据库，测试之前请保证软件是可用的</p>
-<p>在配置文件中将<br>    bindIp: 127.0.0.1<br>注释掉（即在句首加<code>#</code>）</p>
-<pre><code>#bindIp: 127.0.0.1
-</code></pre><p>重启数据库<br>    sudo service mongod restart</p>
+<p>在配置文件中将<br>    <code>bindIp: 127.0.0.1</code><br>注释掉（即在句首加<code>#</code>）<br>    <code>#bindIp: 127.0.0.1</code></p>
+<p>重启数据库<br>    <code>sudo service mongod restart</code></p>
 <h2 id="更改数据目录"><a href="#更改数据目录" class="headerlink" title="更改数据目录"></a>更改数据目录</h2><p>默认的数据存储目录是<code>/var/lib/mongodb</code>，假设我们的目的路径是<code>/home/mongodb</code></p>
-<p>关闭数据库<br>    sudo service mongod stop<br>在配置文件中将<code>storage.dbPath</code>项设置为目的路径，修改后如下<br>    storage：<br>      dbPath: /home/mongodb</p>
-<p>将原目录下的文件复制到新目录中：<br>    sudo cp -r /var/lib/mongodb/* /home/mongodb/</p>
-<p>将<code>mongod.lock</code>文件删除后启动数据库<br>    sudo rm /home/mongodb/mongod.lock<br>    sudo service mongod start</p>
+<p>关闭数据库<br>    <code>sudo service mongod stop</code><br>在配置文件中将<code>storage.dbPath</code>项设置为目的路径，修改后如下<br>    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dbPath: /home/mongodb</span><br></pre></td></tr></table></figure></p>
+<p>将原目录下的文件复制到新目录中：<br>    <code>sudo cp -r /var/lib/mongodb/* /home/mongodb/</code></p>
+<p>将<code>mongod.lock</code>文件删除后启动数据库<br>    <figure class="highlight plain"><figcaption><span>rm</span><a href="/home/mongodb/mongod.lock">link</a></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo service mongod start</span><br></pre></td></tr></table></figure></p>
 <p>测试远程连接</p>
 <h3 id="注意："><a href="#注意：" class="headerlink" title="注意："></a>注意：</h3><p>当你的<code>mongo</code>命令报错，连接失败时，请尝试删除数据存储目录下的<code>mongod.lock</code>文件后，重启mongodb数据库</p>
 

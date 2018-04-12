@@ -337,18 +337,19 @@
 <p><strong>2. 创建list file</strong><br>根据 Ubuntu 的版本使用适当的命令创建 list file: /etc/apt/sources.list.d/mongodb-org-3.4.list</p>
 <p>  ubuntu14.04<br>    echo “deb [ arch=amd64 ] <a href="http://repo.mongodb.org/apt/ubuntu" target="_blank" rel="noopener">http://repo.mongodb.org/apt/ubuntu</a> trusty/mongodb-org/3.4 multiverse” | sudo tee /etc/apt/sources.list.d/mongodb-org-3.4.list</p>
 <p>  ubuntu16.04<br>    echo “deb [ arch=amd64,arm64 ] <a href="http://repo.mongodb.org/apt/ubuntu" target="_blank" rel="noopener">http://repo.mongodb.org/apt/ubuntu</a> xenial/mongodb-org/3.4 multiverse” | sudo tee /etc/apt/sources.list.d/mongodb-org-3.4.list</p>
-<p><strong>3. 重新下载本地包数据库索引</strong><br>    sudo apt-get update</p>
-<p><strong>4. 安装 MongoDB</strong><br>    sudo apt-get install -y mongodb-org</p>
-<h3 id="运行MongoDB"><a href="#运行MongoDB" class="headerlink" title="运行MongoDB"></a>运行MongoDB</h3><p><strong>测试MongoDB shell</strong><br>命令行运行命令：<br>    mongo<br><strong>启动MongoDB</strong><br>    sudo service mongod start</p>
+<p><strong>3. 重新下载本地包数据库索引</strong><br>    <code>sudo apt-get update</code></p>
+<p><strong>4. 安装 MongoDB</strong><br>    <code>sudo apt-get install -y mongodb-org</code></p>
+<h3 id="运行MongoDB"><a href="#运行MongoDB" class="headerlink" title="运行MongoDB"></a>运行MongoDB</h3><p><strong>测试MongoDB shell</strong><br>命令行运行命令：<br>    <code>mongo</code><br><strong>启动MongoDB</strong><br>    <code>sudo service mongod start</code></p>
 <pre><code># 或者
-sudo systemctl start mongod
+`sudo systemctl start mongod`
 </code></pre><p> 注意：1、mongodb3.4安装完是自动运行的，不必自己手动启动；2、仔细看上述命令，是<code>mongod</code>，不是<code>mongodb</code></p>
-<p><strong>关闭MongoDB</strong><br>    sudo service mongod stop</p>
-<p><strong>重启MongoDB</strong><br>    sudo service mongod restart</p>
-<p><strong>查看MongoDB情况</strong><br>    sudo service mongod status</p>
-<h2 id="卸载MongoDB"><a href="#卸载MongoDB" class="headerlink" title="卸载MongoDB"></a>卸载MongoDB</h2><p> <strong>1. 关闭MongoDB</strong><br>    sudo service mongod stop</p>
-<p> <strong>2. 删除所有相关软件包</strong><br>    sudo apt-get purge mongodb-org<em><br>注意：末尾的```</em>```不要漏下</p>
-<p> <strong>3. 删除数据和日志目录</strong><br>    sudo rm -r /var/log/mongodb<br>    sudo rm -r /var/lib/mongodb</p>
+<p><strong>关闭MongoDB</strong><br>    <code>sudo service mongod stop</code></p>
+<p><strong>重启MongoDB</strong><br>    <code>sudo service mongod restart</code></p>
+<p><strong>查看MongoDB情况</strong><br>    <code>sudo service mongod status</code></p>
+<h2 id="卸载MongoDB"><a href="#卸载MongoDB" class="headerlink" title="卸载MongoDB"></a>卸载MongoDB</h2><p> <strong>1. 关闭MongoDB</strong><br>    <code>sudo service mongod stop</code></p>
+<p> <strong>2. 删除所有相关软件包</strong><br>    <code>sudo apt-get purge mongodb-org*</code><br>注意：末尾的<code>*</code>不要漏下</p>
+<p> <strong>3. 删除数据和日志目录</strong><br>    <code>sudo rm -r /var/log/mongodb
+    sudo rm -r /var/lib/mongodb</code></p>
 <p>感谢大拿：<br><a href="https://buzheng.org/2017/20170118-install-mongodb-on-ubuntu.html" target="_blank" rel="noopener">https://buzheng.org/2017/20170118-install-mongodb-on-ubuntu.html</a></p>
 
           
@@ -481,21 +482,19 @@ sudo systemctl start mongod
         
           
             <p>3.4版本的mongodb配置文件为<code>/etc/mongod.conf</code>，格式是yaml。<a href="https://docs.mongodb.com/manual/reference/configuration-options/#storage-options" target="_blank" rel="noopener">点击查看官方文档</a></p>
-<h2 id="开启用户验证"><a href="#开启用户验证" class="headerlink" title="开启用户验证"></a>开启用户验证</h2><p><a href="https://docs.mongodb.com/manual/tutorial/enable-authentication/" target="_blank" rel="noopener">点击查看官方指南</a><br><strong>1. 添加用户</strong><br>启动mongodb：<br>    mongod</p>
-<p>启动mongodb shell<br>    mongo<br>添加用户：<br>    use admin<br>    db.createUser(<br>      {<br>        user: “myUserAdmin”,<br>        pwd: “abc123”,<br>        roles: [ { role: “userAdminAnyDatabase”, db: “admin” } ]<br>      }<br>    )</p>
+<h2 id="开启用户验证"><a href="#开启用户验证" class="headerlink" title="开启用户验证"></a>开启用户验证</h2><p><a href="https://docs.mongodb.com/manual/tutorial/enable-authentication/" target="_blank" rel="noopener">点击查看官方指南</a><br><strong>1. 添加用户</strong><br>启动mongodb：<br>    <code>mongod</code></p>
+<p>启动mongodb shell<br>    <code>mongo</code><br>添加用户：<br>    <figure class="highlight plain"><figcaption><span>admin</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">db.createUser(</span><br><span class="line">  &#123;</span><br><span class="line">    user: &quot;myUserAdmin&quot;,</span><br><span class="line">    pwd: &quot;abc123&quot;,</span><br><span class="line">    roles: [ &#123; role: &quot;userAdminAnyDatabase&quot;, db: &quot;admin&quot; &#125; ]</span><br><span class="line">  &#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure></p>
 <p><strong>2. 更改配置文件</strong></p>
-<p>在配置文件中将</p>
-<pre><code>#security: 
-</code></pre><p>中的<code>#</code>去掉，并在其下一行，空两个空格，加上<code>authorization: enabled</code>，如下<br>    security:<br>      authorization: enabled<br>注意：<code>authorization: enabled</code>中冒号后加一个空格，这是yaml语法所要求的</p>
-<p><strong>3. 重启mongodb数据库</strong><br>    sudo service mongod restart<br>注意：命令中是<code>mongod</code>，不是<code>mongodb</code></p>
+<p>在配置文件中将<br>    <code>#security:</code><br>中的<code>#</code>去掉，并在其下一行，空两个空格，加上<code>authorization: enabled</code>，如下<br>    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">authorization: enabled</span><br></pre></td></tr></table></figure></p>
+<p>注意：<code>authorization: enabled</code>中冒号后加一个空格，这是yaml语法所要求的</p>
+<p><strong>3. 重启mongodb数据库</strong><br>    <code>sudo service mongod restart</code><br>注意：命令中是<code>mongod</code>，不是<code>mongodb</code></p>
 <h2 id="设置远程连接"><a href="#设置远程连接" class="headerlink" title="设置远程连接"></a>设置远程连接</h2><p>注意：老版本的图形界面管理软件可能不支持新版本的数据库，测试之前请保证软件是可用的</p>
-<p>在配置文件中将<br>    bindIp: 127.0.0.1<br>注释掉（即在句首加<code>#</code>）</p>
-<pre><code>#bindIp: 127.0.0.1
-</code></pre><p>重启数据库<br>    sudo service mongod restart</p>
+<p>在配置文件中将<br>    <code>bindIp: 127.0.0.1</code><br>注释掉（即在句首加<code>#</code>）<br>    <code>#bindIp: 127.0.0.1</code></p>
+<p>重启数据库<br>    <code>sudo service mongod restart</code></p>
 <h2 id="更改数据目录"><a href="#更改数据目录" class="headerlink" title="更改数据目录"></a>更改数据目录</h2><p>默认的数据存储目录是<code>/var/lib/mongodb</code>，假设我们的目的路径是<code>/home/mongodb</code></p>
-<p>关闭数据库<br>    sudo service mongod stop<br>在配置文件中将<code>storage.dbPath</code>项设置为目的路径，修改后如下<br>    storage：<br>      dbPath: /home/mongodb</p>
-<p>将原目录下的文件复制到新目录中：<br>    sudo cp -r /var/lib/mongodb/* /home/mongodb/</p>
-<p>将<code>mongod.lock</code>文件删除后启动数据库<br>    sudo rm /home/mongodb/mongod.lock<br>    sudo service mongod start</p>
+<p>关闭数据库<br>    <code>sudo service mongod stop</code><br>在配置文件中将<code>storage.dbPath</code>项设置为目的路径，修改后如下<br>    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dbPath: /home/mongodb</span><br></pre></td></tr></table></figure></p>
+<p>将原目录下的文件复制到新目录中：<br>    <code>sudo cp -r /var/lib/mongodb/* /home/mongodb/</code></p>
+<p>将<code>mongod.lock</code>文件删除后启动数据库<br>    <figure class="highlight plain"><figcaption><span>rm</span><a href="/home/mongodb/mongod.lock">link</a></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo service mongod start</span><br></pre></td></tr></table></figure></p>
 <p>测试远程连接</p>
 <h3 id="注意："><a href="#注意：" class="headerlink" title="注意："></a>注意：</h3><p>当你的<code>mongo</code>命令报错，连接失败时，请尝试删除数据存储目录下的<code>mongod.lock</code>文件后，重启mongodb数据库</p>
 
