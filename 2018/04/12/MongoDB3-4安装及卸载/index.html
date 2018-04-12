@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="mongodb, 安装, 卸载," />
 
 
 
@@ -81,17 +81,18 @@
 
 
 
-<meta name="description" content="Git本地环境配置1. 安装git1sudo apt-get install git 2. 配置用户信息12$ git config --global user.name &amp;quot;Your Name&amp;quot;$ git config --global user.email Your_email@example.com 3. 初始化本地仓库配置1git init 通过SSH连接Github1.">
+<meta name="description" content="安装MongoDB3.41. 导入包管理系统使用的公钥   Ubuntu 的软件包管理工具（即dpkg和APT）要求软件包的发布者通过GPG密钥签名来确保软件包的一致性和真实性。通过以下命令导入MongoDB公共GPG密钥：    sudo apt-key adv –keyserver hkp://keyserver.ubuntu.com:80 –recv 0C49F3730359A1451858">
+<meta name="keywords" content="mongodb, 安装, 卸载">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ubuntu git环境搭建以及通过SSH连接Github（免密码）配置">
-<meta property="og:url" content="http://yoursite.com/2018/02/07/ubuntu-git环境搭建以及通过SSH连接Github（免密码）配置/index.html">
+<meta property="og:title" content="MongoDB3.4安装及卸载">
+<meta property="og:url" content="http://yoursite.com/2018/04/12/MongoDB3-4安装及卸载/index.html">
 <meta property="og:site_name" content="林鼠小窝">
-<meta property="og:description" content="Git本地环境配置1. 安装git1sudo apt-get install git 2. 配置用户信息12$ git config --global user.name &amp;quot;Your Name&amp;quot;$ git config --global user.email Your_email@example.com 3. 初始化本地仓库配置1git init 通过SSH连接Github1.">
+<meta property="og:description" content="安装MongoDB3.41. 导入包管理系统使用的公钥   Ubuntu 的软件包管理工具（即dpkg和APT）要求软件包的发布者通过GPG密钥签名来确保软件包的一致性和真实性。通过以下命令导入MongoDB公共GPG密钥：    sudo apt-key adv –keyserver hkp://keyserver.ubuntu.com:80 –recv 0C49F3730359A1451858">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-02-07T14:40:56.566Z">
+<meta property="og:updated_time" content="2018-04-12T04:53:52.188Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ubuntu git环境搭建以及通过SSH连接Github（免密码）配置">
-<meta name="twitter:description" content="Git本地环境配置1. 安装git1sudo apt-get install git 2. 配置用户信息12$ git config --global user.name &amp;quot;Your Name&amp;quot;$ git config --global user.email Your_email@example.com 3. 初始化本地仓库配置1git init 通过SSH连接Github1.">
+<meta name="twitter:title" content="MongoDB3.4安装及卸载">
+<meta name="twitter:description" content="安装MongoDB3.41. 导入包管理系统使用的公钥   Ubuntu 的软件包管理工具（即dpkg和APT）要求软件包的发布者通过GPG密钥签名来确保软件包的一致性和真实性。通过以下命令导入MongoDB公共GPG密钥：    sudo apt-key adv –keyserver hkp://keyserver.ubuntu.com:80 –recv 0C49F3730359A1451858">
 
 
 
@@ -121,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/02/07/ubuntu-git环境搭建以及通过SSH连接Github（免密码）配置/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/04/12/MongoDB3-4安装及卸载/"/>
 
 
 
 
 
-  <title>ubuntu git环境搭建以及通过SSH连接Github（免密码）配置 | 林鼠小窝</title>
+  <title>MongoDB3.4安装及卸载 | 林鼠小窝</title>
   
 
 
@@ -254,7 +255,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/07/ubuntu-git环境搭建以及通过SSH连接Github（免密码）配置/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/12/MongoDB3-4安装及卸载/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="墨封">
@@ -271,7 +272,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">ubuntu git环境搭建以及通过SSH连接Github（免密码）配置</h1>
+          <h1 class="post-title" itemprop="name headline">MongoDB3.4安装及卸载</h1>
         
 
         <div class="post-meta">
@@ -283,8 +284,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-07T22:32:33+08:00">
-                2018-02-07
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-12T12:52:10+08:00">
+                2018-04-12
               </time>
             
 
@@ -301,7 +302,7 @@
 
           
           
-             <span id="/2018/02/07/ubuntu-git环境搭建以及通过SSH连接Github（免密码）配置/" class="leancloud_visitors" data-flag-title="ubuntu git环境搭建以及通过SSH连接Github（免密码）配置">
+             <span id="/2018/04/12/MongoDB3-4安装及卸载/" class="leancloud_visitors" data-flag-title="MongoDB3.4安装及卸载">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -332,28 +333,23 @@
       
 
       
-        <h2 id="Git本地环境配置"><a href="#Git本地环境配置" class="headerlink" title="Git本地环境配置"></a>Git本地环境配置</h2><h3 id="1-安装git"><a href="#1-安装git" class="headerlink" title="1. 安装git"></a>1. 安装git</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install git</span><br></pre></td></tr></table></figure>
-<h3 id="2-配置用户信息"><a href="#2-配置用户信息" class="headerlink" title="2. 配置用户信息"></a>2. 配置用户信息</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git config --global user.name &quot;Your Name&quot;</span><br><span class="line">$ git config --global user.email Your_email@example.com</span><br></pre></td></tr></table></figure>
-<h3 id="3-初始化本地仓库配置"><a href="#3-初始化本地仓库配置" class="headerlink" title="3. 初始化本地仓库配置"></a>3. 初始化本地仓库配置</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git init</span><br></pre></td></tr></table></figure>
-<h2 id="通过SSH连接Github"><a href="#通过SSH连接Github" class="headerlink" title="通过SSH连接Github"></a>通过SSH连接Github</h2><h3 id="1-安装SSH"><a href="#1-安装SSH" class="headerlink" title="1. 安装SSH"></a>1. 安装SSH</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install ssh</span><br></pre></td></tr></table></figure>
-<p>首先 ssh-keygen 会确认密钥的存储位置和文件名（默认是 .ssh/id_rsa）,然后他会要求你输入两次密钥口令，留空即可。所以一般选用默认，全部回车即可。</p>
-<h3 id="2-创建密钥文件"><a href="#2-创建密钥文件" class="headerlink" title="2. 创建密钥文件"></a>2. 创建密钥文件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C &quot;你的github账号邮箱&quot;</span><br></pre></td></tr></table></figure>
-<p>默认密钥文件路径在<code>~/.ssh</code>，<code>id_rsa</code>是私钥文件，<code>id_rsa.pub</code>是公钥文件</p>
-<h3 id="3-将公钥添加到Github"><a href="#3-将公钥添加到Github" class="headerlink" title="3. 将公钥添加到Github"></a>3. 将公钥添加到Github</h3><ol>
-<li>将<code>id_rsa.pub</code>文件内容全部复制</li>
-<li>登陆到GitHub上，右上角小头像-&gt;Setting-&gt;SSH and GPG keys中，点击new SSH key。</li>
-</ol>
-<h3 id="4-SSH测试"><a href="#4-SSH测试" class="headerlink" title="4. SSH测试"></a>4. SSH测试</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure>
-<p>如果结果为 “ …You’ve successfully authenticated, but GitHub does not provide shell access”，则说明成功。</p>
-<h3 id="5-设置远程仓库"><a href="#5-设置远程仓库" class="headerlink" title="5. 设置远程仓库"></a>5. 设置远程仓库</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote add origin git@github.com:Username/Repositories_Name.git</span><br></pre></td></tr></table></figure>
-<p><em>如果手误输错，可通过<code>git remote remove origin</code>命令删除该远程仓库。</em></p>
-<h3 id="6-最终测试"><a href="#6-最终测试" class="headerlink" title="6.最终测试"></a>6.最终测试</h3><ol>
-<li>在本地创建更改</li>
-<li><code>git add xxx</code></li>
-<li><code>git commit -m &quot;xxxxxx&quot;</code></li>
-<li><code>git push origin master</code></li>
-</ol>
-<p>OK！</p>
+        <h3 id="安装MongoDB3-4"><a href="#安装MongoDB3-4" class="headerlink" title="安装MongoDB3.4"></a>安装MongoDB3.4</h3><p><strong>1. 导入包管理系统使用的公钥</strong><br>   Ubuntu 的软件包管理工具（即dpkg和APT）要求软件包的发布者通过GPG密钥签名来确保软件包的一致性和真实性。通过以下命令导入MongoDB公共GPG密钥：<br>    sudo apt-key adv –keyserver hkp://keyserver.ubuntu.com:80 –recv 0C49F3730359A14518585931BC711F9BA15703C6</p>
+<p><strong>2. 创建list file</strong><br>根据 Ubuntu 的版本使用适当的命令创建 list file: /etc/apt/sources.list.d/mongodb-org-3.4.list</p>
+<p>  ubuntu14.04<br>    echo “deb [ arch=amd64 ] <a href="http://repo.mongodb.org/apt/ubuntu" target="_blank" rel="noopener">http://repo.mongodb.org/apt/ubuntu</a> trusty/mongodb-org/3.4 multiverse” | sudo tee /etc/apt/sources.list.d/mongodb-org-3.4.list</p>
+<p>  ubuntu16.04<br>    echo “deb [ arch=amd64,arm64 ] <a href="http://repo.mongodb.org/apt/ubuntu" target="_blank" rel="noopener">http://repo.mongodb.org/apt/ubuntu</a> xenial/mongodb-org/3.4 multiverse” | sudo tee /etc/apt/sources.list.d/mongodb-org-3.4.list</p>
+<p><strong>3. 重新下载本地包数据库索引</strong><br>    sudo apt-get update</p>
+<p><strong>4. 安装 MongoDB</strong><br>    sudo apt-get install -y mongodb-org</p>
+<h3 id="运行MongoDB"><a href="#运行MongoDB" class="headerlink" title="运行MongoDB"></a>运行MongoDB</h3><p><strong>测试MongoDB shell</strong><br>命令行运行命令：<br>    mongo<br><strong>启动MongoDB</strong><br>    sudo service mongod start</p>
+<pre><code># 或者
+sudo systemctl start mongod
+</code></pre><p> 注意：1、mongodb3.4安装完是自动运行的，不必自己手动启动；2、仔细看上述命令，是<code>mongod</code>，不是<code>mongodb</code></p>
+<p><strong>关闭MongoDB</strong><br>    sudo service mongod stop</p>
+<p><strong>重启MongoDB</strong><br>    sudo service mongod restart</p>
+<p><strong>查看MongoDB情况</strong><br>    sudo service mongod status</p>
+<h2 id="卸载MongoDB"><a href="#卸载MongoDB" class="headerlink" title="卸载MongoDB"></a>卸载MongoDB</h2><p> <strong>1. 关闭MongoDB</strong><br>    sudo service mongod stop</p>
+<p> <strong>2. 删除所有相关软件包</strong><br>    sudo apt-get purge mongodb-org<em><br>注意：末尾的```</em>```不要漏下</p>
+<p> <strong>3. 删除数据和日志目录</strong><br>    sudo rm -r /var/log/mongodb<br>    sudo rm -r /var/lib/mongodb</p>
+<p>感谢大拿：<br><a href="https://buzheng.org/2017/20170118-install-mongodb-on-ubuntu.html" target="_blank" rel="noopener">https://buzheng.org/2017/20170118-install-mongodb-on-ubuntu.html</a></p>
 
       
     </div>
@@ -398,6 +394,12 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/mongodb-安装-卸载/" rel="tag"># mongodb, 安装, 卸载</a>
+          
+        </div>
+      
 
       
       
@@ -407,8 +409,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/02/06/hello-world/" rel="next" title="Hello World">
-                <i class="fa fa-chevron-left"></i> Hello World
+              <a href="/2018/04/12/MongoDB3-4开启用户验证、设置远程连接及更改数据存储路径/" rel="next" title="MongoDB3.4开启用户验证、设置远程连接及更改数据存储路径">
+                <i class="fa fa-chevron-left"></i> MongoDB3.4开启用户验证、设置远程连接及更改数据存储路径
               </a>
             
           </div>
@@ -416,10 +418,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/03/31/毕设日志-2018-3-31/" rel="prev" title="毕设日志-2018/3/31">
-                毕设日志-2018/3/31 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -558,7 +556,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Git本地环境配置"><span class="nav-number">1.</span> <span class="nav-text">Git本地环境配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-安装git"><span class="nav-number">1.1.</span> <span class="nav-text">1. 安装git</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-配置用户信息"><span class="nav-number">1.2.</span> <span class="nav-text">2. 配置用户信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-初始化本地仓库配置"><span class="nav-number">1.3.</span> <span class="nav-text">3. 初始化本地仓库配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#通过SSH连接Github"><span class="nav-number">2.</span> <span class="nav-text">通过SSH连接Github</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-安装SSH"><span class="nav-number">2.1.</span> <span class="nav-text">1. 安装SSH</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-创建密钥文件"><span class="nav-number">2.2.</span> <span class="nav-text">2. 创建密钥文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-将公钥添加到Github"><span class="nav-number">2.3.</span> <span class="nav-text">3. 将公钥添加到Github</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-SSH测试"><span class="nav-number">2.4.</span> <span class="nav-text">4. SSH测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-设置远程仓库"><span class="nav-number">2.5.</span> <span class="nav-text">5. 设置远程仓库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-最终测试"><span class="nav-number">2.6.</span> <span class="nav-text">6.最终测试</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装MongoDB3-4"><span class="nav-number">1.</span> <span class="nav-text">安装MongoDB3.4</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#运行MongoDB"><span class="nav-number">2.</span> <span class="nav-text">运行MongoDB</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#卸载MongoDB"><span class="nav-number"></span> <span class="nav-text">卸载MongoDB</span></a></div>
             
 
           </div>
