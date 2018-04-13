@@ -251,6 +251,260 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/13/mongodb基础操作（增删改查）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="墨封">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="林鼠小窝">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/04/13/mongodb基础操作（增删改查）/" itemprop="url">mongodb基础操作（增删改查）</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-13T10:17:45+08:00">
+                2018-04-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/04/13/mongodb基础操作（增删改查）/" class="leancloud_visitors" data-flag-title="mongodb基础操作（增删改查）">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>[toc]</p>
+<h2 id="1-插入"><a href="#1-插入" class="headerlink" title="1.插入"></a>1.插入</h2><pre><code>db.collection.insert(
+   &lt;document or array of documents&gt;,
+   {
+     writeConcern: &lt;document&gt;,
+     ordered: &lt;boolean&gt;
+   }
+)
+</code></pre><ul>
+<li>第一个参数为要插入的文档或文档数组</li>
+<li>writeConcern：与safe write有关，暂未了解</li>
+<li>ordered：当插入对象为文档数组时有用，若ordered为<code>true</code>，有序插入，且当数组中的某个文档插入出错时，不再继续插入剩余文档，直接退出；若ordered为<code>false</code>，无序插入，当数组中某个文档插入出错时，略过该文档，继续将其他文档插入。默认为<code>true</code></li>
+</ul>
+<p>示例：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt;db.test.insert([</span><br><span class="line">&#123;<span class="string">"fruit"</span>:[<span class="string">"apple"</span>,<span class="string">"banana"</span>,<span class="string">"peach"</span>]&#125;,</span><br><span class="line">&#123;<span class="string">"fruit"</span>:[<span class="string">"apple"</span>,<span class="string">"kumquat"</span>,<span class="string">"orange"</span>]&#125;,</span><br><span class="line">&#123;<span class="string">"fruit"</span>:[<span class="string">"apple"</span>,<span class="string">"kumquat"</span>,<span class="string">"orange"</span>]&#125;],&#123;<span class="attr">ordered</span>:<span class="literal">false</span>&#125;) <span class="comment">//插入一个文档数组，ordered设为false</span></span><br><span class="line"></span><br><span class="line">&gt;db.test.insert(&#123;<span class="string">"fruit"</span>:<span class="string">"apple"</span>&#125;)  <span class="comment">//插入一个文档</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="2-查询"><a href="#2-查询" class="headerlink" title="2.查询"></a>2.查询</h2><p>查询是后续删除操作与更新操作的基础</p>
+<h3 id="2-1-参数介绍"><a href="#2-1-参数介绍" class="headerlink" title="2.1 参数介绍"></a>2.1 参数介绍</h3><pre><code>db.collection_name.find(query, projection)
+</code></pre><ul>
+<li><code>query</code>决定返回的子集，这个参数是一个文档，用于指定查询条件。空的查询文档（如<code>{}</code>）会匹配整个集合的所有文档，如果不指定查询文档，默认为空。</li>
+<li><code>projection</code>用来指定要返回的文档中哪些字段<br>示例：<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">db.user.find() <span class="comment">//返回user集合中所有文档</span></span><br><span class="line">db.user.find(&#123;<span class="string">"age"</span>:<span class="number">27</span>&#125;) <span class="comment">//返回user集合中age为27的文档</span></span><br><span class="line"></span><br><span class="line">db.user.find(&#123;&#125;,&#123;<span class="string">"username"</span>:<span class="number">1</span>,<span class="string">"email"</span>:<span class="number">1</span>，<span class="string">"phone"</span>:<span class="number">0</span>,<span class="string">"addr"</span>:<span class="number">0</span>&#125;) <span class="comment">//只返回username和email</span></span><br><span class="line">db.user.find(&#123;&#125;,&#123;<span class="string">"username"</span>:<span class="number">0</span>&#125;) <span class="comment">//返回除username之外的所有字段</span></span><br><span class="line">db.user.find(&#123;&#125;,&#123;<span class="string">"username"</span>:<span class="number">1</span>&#125;) <span class="comment">//只返回username</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="2-2-基础查询条件"><a href="#2-2-基础查询条件" class="headerlink" title="2.2 基础查询条件"></a>2.2 基础查询条件</h3><h4 id="2-21-比较操作符"><a href="#2-21-比较操作符" class="headerlink" title="2.21 比较操作符"></a>2.21 比较操作符</h4><p><code>$lt、$lte、$gt、$gte</code>是全部的比较操作符，分别对应<code>&lt;、&lt;=、&gt;、&gt;=</code>。<br>可以将其组合使用<br>例如：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.user.find(&#123;<span class="string">"age"</span>:&#123;<span class="string">"$gte"</span>:<span class="number">18</span>,<span class="string">"$lte"</span>:<span class="number">30</span>&#125;&#125;) <span class="comment">//查询18~30岁的用户</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="2-22-OR查询"><a href="#2-22-OR查询" class="headerlink" title="2.22 OR查询"></a>2.22 OR查询</h4><p>两种方式：</p>
+<ul>
+<li><code>$in</code>：用来查询一个键的多个值</li>
+<li><code>$or</code>：更为通用，可以在多个键中查询任意的给定值</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">db.user.find(&#123;<span class="string">"username"</span>:&#123;<span class="string">"$in"</span>:[<span class="string">"Bob"</span>,<span class="string">"Joe"</span>]&#125;&#125;) <span class="comment">//查询用户名为Bob或Joe的文档，`["Bob","Joe"]`为条件数组</span></span><br><span class="line">db.user.find(&#123;<span class="string">"$or"</span>:[&#123;<span class="string">"username"</span>:&#123;<span class="string">"$in"</span>:[<span class="string">"Bob"</span>,<span class="string">"Joe"</span>]&#125;&#125;,</span><br><span class="line">					 &#123;<span class="string">"phone"</span>:<span class="string">"123"</span>&#125;]&#125;) <span class="comment">//查询用户名为Bob或Joe或者phone为123的文档</span></span><br></pre></td></tr></table></figure>
+<p>  <code>$nin</code>与<code>$in</code>相对，返回与条件数组中所有值都不匹配的文档</p>
+<p><strong><em>总结：<code>$in</code>只能对单个键做OR查询，而<code>$or</code>则可以对多个键使用</em></strong></p>
+<h4 id="2-23-not操作符"><a href="#2-23-not操作符" class="headerlink" title="2.23 $not操作符"></a>2.23 <code>$not</code>操作符</h4><p><code>$not</code>为元条件句，即可以用在任何其他条件之上</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.user.find(&#123;<span class="string">"username"</span>:&#123;<span class="string">"$not"</span>:&#123;<span class="string">"$in"</span>:[<span class="string">"Bob"</span>,<span class="string">"Joe"</span>]&#125;&#125;&#125;) <span class="comment">//查询用户名不为Bob或Joe的文档</span></span><br></pre></td></tr></table></figure>
+<h4 id="2-24-and操作符"><a href="#2-24-and操作符" class="headerlink" title="2.24 $and操作符"></a>2.24 <code>$and</code>操作符</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.user.find(&#123;<span class="string">"$and"</span>:[&#123;<span class="string">"username"</span>:<span class="string">"Bob"</span>&#125;,&#123;<span class="string">"phone"</span>:<span class="number">123</span>&#125;]&#125; <span class="comment">//查询username为Bob且phone为123的文档</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-3-特殊类型的查询条件"><a href="#2-3-特殊类型的查询条件" class="headerlink" title="2.3 特殊类型的查询条件"></a>2.3 特殊类型的查询条件</h3><h4 id="2-31-null"><a href="#2-31-null" class="headerlink" title="2.31 null"></a>2.31 null</h4><p><code>null</code>类型不仅会匹配某个键的值为<code>null</code>的文档，也会匹配不包含这个键的文档</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&gt;db.c.find()</span><br><span class="line">&#123;<span class="string">"y"</span>:<span class="literal">null</span>&#125;</span><br><span class="line">&#123;<span class="string">"y"</span>:<span class="number">1</span>&#125;</span><br><span class="line">&#123;<span class="string">"y"</span>:<span class="number">2</span>&#125;</span><br><span class="line">&gt;db.c.find(&#123;<span class="string">"y"</span>:<span class="literal">null</span>&#125;)</span><br><span class="line">&#123;<span class="string">"y"</span>:<span class="literal">null</span>&#125;</span><br><span class="line">&gt;db.c.find(&#123;<span class="string">"z"</span>:<span class="literal">null</span>&#125;)</span><br><span class="line">&#123;<span class="string">"y"</span>:<span class="literal">null</span>&#125;</span><br><span class="line">&#123;<span class="string">"y"</span>:<span class="number">1</span>&#125;</span><br><span class="line">&#123;<span class="string">"y"</span>:<span class="number">2</span>&#125;</span><br></pre></td></tr></table></figure>
+<p>如果要查找某个键的值为 null 的文档，可以使用如下方法：</p>
+<pre><code>db.c.find({&quot;z&quot;:{&quot;$in&quot;,[null],&quot;$exists&quot;:true}})
+</code></pre><h4 id="2-32-正则表达式"><a href="#2-32-正则表达式" class="headerlink" title="2.32 正则表达式"></a>2.32 正则表达式</h4><p>MongoDB使用Perl兼容的正则表达式（PCRE）库来匹配正则表达式，任何PCRE库支持的正则表达式语法都能被MongoDB接受。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.user.find(&#123;<span class="string">"username"</span>:<span class="regexp">/.&#123;4&#125;/i</span>&#125;) <span class="comment">//查找所有username为4个字符的文档</span></span><br></pre></td></tr></table></figure></p>
+<p><code>i</code>是正则表达式的标志，可省略，两个<code>/</code>中是正则表达式</p>
+<h4 id="2-33-查询数组"><a href="#2-33-查询数组" class="headerlink" title="2.33 查询数组"></a>2.33 查询数组</h4><ol>
+<li><p>查询数组指定位置元素，需使用<strong><em>key.index</em></strong>语法指定下标，下标从0开始</p>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&gt;db.b.find()</span><br><span class="line">&#123;<span class="string">"fruit"</span>:[<span class="string">"apple"</span>,<span class="string">"banana"</span>,<span class="string">"peach"</span>]&#125;</span><br><span class="line">&#123;<span class="string">"fruit"</span>:[<span class="string">"apple"</span>,<span class="string">"kumquat"</span>,<span class="string">"orange"</span>]&#125;</span><br><span class="line">&#123;<span class="string">"fruit"</span>:[<span class="string">"cherry"</span>,<span class="string">"banana"</span>,<span class="string">"apple"</span>]&#125;</span><br><span class="line"></span><br><span class="line">&gt;db.b.find(&#123;<span class="string">"fruit.0"</span>:<span class="string">"apple"</span>&#125;) <span class="comment">//查询fruit数组中第一项为apple的文档</span></span><br><span class="line">&#123;<span class="string">"fruit"</span>:[<span class="string">"apple"</span>,<span class="string">"banana"</span>,<span class="string">"peach"</span>]&#125;</span><br><span class="line">&#123;<span class="string">"fruit"</span>:[<span class="string">"apple"</span>,<span class="string">"kumquat"</span>,<span class="string">"orange"</span>]&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>$all</code>：通过多个元素来匹配一个数组</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">	&gt;db.b.find()</span><br><span class="line">	&#123;<span class="string">"fruit"</span>:[<span class="string">"apple"</span>,<span class="string">"banana"</span>,<span class="string">"peach"</span>]&#125;</span><br><span class="line">	&#123;<span class="string">"fruit"</span>:[<span class="string">"apple"</span>,<span class="string">"kumquat"</span>,<span class="string">"orange"</span>]&#125;</span><br><span class="line">	&#123;<span class="string">"fruit"</span>:[<span class="string">"cherry"</span>,<span class="string">"banana"</span>,<span class="string">"apple"</span>]&#125;</span><br><span class="line"></span><br><span class="line">	&gt;db.b.find(&#123;<span class="string">"fruit"</span>:&#123;<span class="string">"$all"</span>:[<span class="string">"apple"</span>,<span class="string">"banana"</span>]&#125;&#125;) <span class="comment">//查找既有apple又有banana的文档</span></span><br><span class="line">	&#123;<span class="string">"fruit"</span>:[<span class="string">"apple"</span>,<span class="string">"banana"</span>,<span class="string">"peach"</span>]&#125;</span><br><span class="line">	&#123;<span class="string">"fruit"</span>:[<span class="string">"cherry"</span>,<span class="string">"banana"</span>,<span class="string">"apple"</span>]&#125;</span><br><span class="line">	<span class="string">``</span><span class="string">` </span></span><br><span class="line"><span class="string">3. `</span>$size<span class="string">`：查询特定长度的数组</span></span><br><span class="line"><span class="string">	`</span><span class="string">``</span>javascript</span><br><span class="line">	&gt;db.b.find()</span><br><span class="line">	&#123;<span class="string">"fruit"</span>:[<span class="string">"apple"</span>,<span class="string">"banana"</span>,<span class="string">"peach"</span>]&#125;</span><br><span class="line">	&#123;<span class="string">"fruit"</span>:[<span class="string">"apple"</span>,<span class="string">"kumquat"</span>,<span class="string">"orange"</span>]&#125;</span><br><span class="line">	&#123;<span class="string">"fruit"</span>:[<span class="string">"cherry"</span>,<span class="string">"banana"</span>,<span class="string">"apple"</span>]&#125;</span><br><span class="line">	&#123;<span class="string">"fruit"</span>:[<span class="string">"apple"</span>,<span class="string">"banana"</span>]&#125;</span><br><span class="line">	</span><br><span class="line">	&gt;db.b.find(&#123;<span class="string">"fruit"</span>:&#123;<span class="string">"$size"</span>:<span class="number">2</span>&#125;&#125;) <span class="comment">//查询长度为2的数组</span></span><br><span class="line">	&#123;<span class="string">"fruit"</span>:[<span class="string">"apple"</span>,<span class="string">"banana"</span>]&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ol>
+<li><p><code>$slice</code>操作符<br>返回某个键匹配的数组的一个子集，是<code>find()</code>的第二个参数的一种方法</p>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&gt; db.test.find(&#123;<span class="string">"fruit"</span>:&#123;<span class="string">"$all"</span>:[<span class="string">"banana"</span>,<span class="string">"peach"</span>]&#125;&#125;,&#123;<span class="string">"fruit"</span>:&#123;<span class="string">"$slice"</span>:<span class="number">1</span>&#125;&#125;)  <span class="comment">//返回第一个元素</span></span><br><span class="line">&#123;<span class="string">"fruit"</span>:[<span class="string">"apple"</span>]&#125;</span><br><span class="line">&gt; db.test.find(&#123;<span class="string">"fruit"</span>:&#123;<span class="string">"$all"</span>:[<span class="string">"banana"</span>,<span class="string">"peach"</span>]&#125;&#125;,&#123;<span class="string">"fruit"</span>:&#123;<span class="string">"$slice"</span>:<span class="number">2</span>&#125;&#125;)  <span class="comment">//返回前两个元素</span></span><br><span class="line">&#123;<span class="string">"fruit"</span>:[<span class="string">"apple"</span>，<span class="string">"banana"</span>]&#125;</span><br><span class="line">&gt; db.test.find(&#123;<span class="string">"fruit"</span>:&#123;<span class="string">"$all"</span>:[<span class="string">"banana"</span>,<span class="string">"peach"</span>]&#125;&#125;,&#123;<span class="string">"fruit"</span>:&#123;<span class="string">"$slice"</span>:<span class="number">-1</span>&#125;&#125;) <span class="comment">//返回最后一个元素</span></span><br><span class="line">&#123;<span class="string">"fruit"</span>:[<span class="string">"peach"</span>]&#125;</span><br><span class="line">&gt; db.test.find(&#123;<span class="string">"fruit"</span>:&#123;<span class="string">"$all"</span>:[<span class="string">"banana"</span>,<span class="string">"peach"</span>]&#125;&#125;,&#123;<span class="string">"fruit"</span>:&#123;<span class="string">"$slice"</span>:[<span class="number">1</span>,<span class="number">10</span>]&#125;&#125;)  <span class="comment">//返回第2~10元素，如果不够10个则到数组结尾</span></span><br><span class="line">&#123;<span class="string">"fruit"</span>:[<span class="string">"banana"</span>,<span class="string">"peach"</span>]&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>数组与范围查询的相互作用<br>文档中的标量（非数组元素）必须符合查询条件中的每一条语句，才会被返回。例如用<code>{&quot;x&quot;:{&quot;$lt&quot;:20,&quot;$gt&quot;:10}}</code>查询，只会匹配<code>x</code>值大于10且小于20的文档。但是如果某个文档的”x”字段为一个数组，且查询条件中的每条语句都有一个数组内的值与之匹配（不必为同一个值），便会返回这个数组。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&gt;db.test.find()</span><br><span class="line">&#123;<span class="string">"x"</span>:<span class="number">5</span>&#125;</span><br><span class="line">&#123;<span class="string">"x"</span>:<span class="number">15</span>&#125;</span><br><span class="line">&#123;<span class="string">"x"</span>:[<span class="number">5</span>,<span class="number">15</span>,<span class="number">25</span>]&#125;</span><br><span class="line">&#123;<span class="string">"x"</span>:[<span class="number">5</span>,<span class="number">25</span>]&#125;</span><br><span class="line">&gt;db.test.find(&#123;<span class="string">"x"</span>:&#123;<span class="string">"$lt"</span>:<span class="number">20</span>,<span class="string">"$gt"</span>:<span class="number">10</span>&#125;&#125;)</span><br><span class="line">&#123;<span class="string">"x"</span>:<span class="number">15</span>&#125;</span><br><span class="line">&#123;<span class="string">"x"</span>:[<span class="number">5</span>,<span class="number">15</span>,<span class="number">25</span>]&#125;</span><br><span class="line">&#123;<span class="string">"x"</span>:[<span class="number">5</span>,<span class="number">25</span>]&#125;</span><br></pre></td></tr></table></figure>
+<p>上述例子中，由于数组中5小于20，25大于10，所以将该数组返回了<br>可以通过<code>$elemMatch</code>解决这个问题</p>
+</li>
+<li><p><code>$elemMatch</code><br>对数组中的元素遍历，依次检查每个值，判断是否存在符合所有查询条件的值，若存在则返回该文档。<strong><em>只查询数组类型。</em></strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;db.test.find(&#123;<span class="string">"x"</span>:&#123;<span class="string">"$elemMatch"</span>:&#123;<span class="string">"$lt"</span>:<span class="number">20</span>,<span class="string">"$gt"</span>:<span class="number">10</span>&#125;&#125;&#125;)</span><br><span class="line">&#123;<span class="string">"x"</span>:[<span class="number">5</span>,<span class="number">15</span>,<span class="number">25</span>]&#125;</span><br></pre></td></tr></table></figure>
+<p><code>{&quot;x&quot;:15}</code>中<code>x</code>的值不是数组类型，所以没有返回，<code>{&quot;x&quot;:[5,25]}</code>中没有符合所有条件的元素，所以没有被返回。</p>
+</li>
+</ol>
+<p>###2.4 查询结果处理选项</p>
+<p>####2.41 <code>limit</code>限制返回结果数量<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;db.test.find().limit(<span class="number">3</span>) <span class="comment">//只返回3个结果，如果结果不到3个，则返回匹配数量的结果</span></span><br></pre></td></tr></table></figure></p>
+<p>####2.42 <code>skip</code>跳过部分结果<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;db.test.find().skip(<span class="number">3</span>) <span class="comment">//略过前3个文档，返回余下的文档，如果文档数不足3个，则不返回结果</span></span><br></pre></td></tr></table></figure></p>
+<p>####2.43 <code>sort</code>结果排序<br><code>sort</code>接受键值对作为参数，键为需要排序的字段，值为排序方向，1为正向，-1为反向。<br>如果指定了多个键，则按照这些键被指定的顺序排序<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;db.test.find().sort(&#123;<span class="string">"username"</span>:<span class="number">1</span>,<span class="string">"age"</span>:<span class="number">-1</span>&#125;) <span class="comment">//按照username正向，age反向排序</span></span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p><strong><em>上述几个函数可同时使用，顺序无所谓</em></strong></p>
+</blockquote>
+<h2 id="3-删除"><a href="#3-删除" class="headerlink" title="3.删除"></a>3.删除</h2><pre><code>db.collection.remove(
+   &lt;query&gt;,
+   {
+     justOne: &lt;boolean&gt;,
+     writeConcern: &lt;document&gt;
+   }
+)
+</code></pre><ul>
+<li>query：查询语句，find中各种查询方法均适用</li>
+<li>justOne：若为<code>true</code>，则只删除一条符合条件的文档；<code>false</code>全部删除</li>
+<li>writeConcern：与safe write相关，暂未了解</li>
+</ul>
+<p>示例：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">db.test.remove() <span class="comment">//删除所有文档</span></span><br><span class="line">db.test.remove(&#123;<span class="string">"username"</span>:<span class="string">"Bob"</span>&#125;,&#123;<span class="attr">justOne</span>:<span class="literal">true</span>&#125;) <span class="comment">//删除第一条username为Bob的文档</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="4-更新"><a href="#4-更新" class="headerlink" title="4.更新"></a>4.更新</h2><pre><code>db.collection.update(
+   &lt;query&gt;,
+   &lt;update&gt;,
+   {
+     upsert: &lt;boolean&gt;,
+     multi: &lt;boolean&gt;,
+     writeConcern: &lt;document&gt;
+   }
+)
+</code></pre><ul>
+<li><code>query</code>：查询文档，定位需要更新的文档</li>
+<li><code>update</code>：修改器文档，说明进行怎样的更改</li>
+<li><code>upsert</code>：当没有匹配到文档时，是否根据查询文档与更新文档新建一个文档</li>
+<li><code>multi</code>：匹配到多个文档时是否全部更新</li>
+<li><code>writeConcern</code>：与safe write有关，暂未了解</li>
+</ul>
+<h3 id="4-1文档替换"><a href="#4-1文档替换" class="headerlink" title="4.1文档替换"></a>4.1文档替换</h3><p>用一个新文档完全替换匹配到的文档，适用于大规模模式迁移。</p>
+<h3 id="4-2使用修改器"><a href="#4-2使用修改器" class="headerlink" title="4.2使用修改器"></a>4.2使用修改器</h3><p><a href="https://docs.mongodb.com/manual/reference/operator/update-field/" target="_blank" rel="noopener">官方文档</a><br>文档只有一部分需要修改，可以使用原子性的<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">使用修改器时，```&quot;_id&quot;```值不可改变，但整个文档修改时可以改变，包括其他唯一索引的键值。</span><br><span class="line">#### 4.2.1```$set```修改器</span><br><span class="line">``$set``` 修改器用来指定一个键的值，如果该键不存在会创建该键（子文档修改方法见查找子文档方法）。</span><br><span class="line">```$unset``` 修改器用来完全删除一个键</span><br><span class="line"></span><br><span class="line">	&#123; $set: &#123; &lt;field1&gt;: &lt;value1&gt;, ... &#125; &#125;</span><br><span class="line">	&#123; $unset: &#123; &lt;field1&gt;: &quot;&quot;, ... &#125; &#125;</span><br><span class="line">	</span><br><span class="line"></span><br><span class="line">#### 4.2.2增加和减少</span><br><span class="line">```$inc``` 修改器用来增加已有键的值（可为负），若该键不存在，则新建该键。</span><br><span class="line">只能用于值为数字类型的键值对，增加的值也必须为数字类型（整数、长整数、双精度浮点型）</span><br><span class="line">#### 4.2.3数组修改器</span><br><span class="line">用于操作数组的一类修改器：</span><br><span class="line"></span><br><span class="line"> 1. 添加元素</span><br><span class="line"></span><br><span class="line">添加单个元素：```$push``` 向已有数组的末尾加入一个元素，若该数组不存在，创建该数组</span><br><span class="line"></span><br><span class="line">    db.test.update(&#123;&quot;age&quot;:1,&quot;name&quot;:&quot;zhao&quot;&#125;,&#123;&quot;$push&quot;:&#123;&quot;frind&quot;:&quot;liao&quot;&#125;&#125;)</span><br><span class="line">    WriteResult(&#123; &quot;nMatched&quot; : 1, &quot;nUpserted&quot; : 0, &quot;nModified&quot; : 1 &#125;)</span><br><span class="line">    db.test.find().pretty()</span><br><span class="line">    &#123;</span><br><span class="line">    	&quot;_id&quot; : ObjectId(&quot;578e2824d11665d6ee528207&quot;),</span><br><span class="line">    	&quot;age&quot; : -1,</span><br><span class="line">    	&quot;name&quot; : &quot;zhao&quot;,</span><br><span class="line">    	&quot;hostdown&quot; : &quot;weihai&quot;,</span><br><span class="line">    	&quot;frind&quot; : [</span><br><span class="line">    		&quot;liao&quot;</span><br><span class="line">    	]</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">添加多个元素：```$each```,注意用法！</span><br><span class="line"></span><br><span class="line">    &gt; db.test.update(&#123;&quot;age&quot;:-1,&quot;name&quot;:&quot;zhao&quot;&#125;,&#123;&quot;$push&quot;:&#123;&quot;friend&quot;:&#123;&quot;$each&quot;:[&quot;bao&quot;,&quot;meng&quot;]&#125;&#125;&#125;)</span><br><span class="line">    WriteResult(&#123; &quot;nMatched&quot; : 1, &quot;nUpserted&quot; : 0, &quot;nModified&quot; : 1 &#125;)</span><br><span class="line">    &gt; db.test.find().pretty()</span><br><span class="line">    &#123;</span><br><span class="line">    	&quot;_id&quot; : ObjectId(&quot;578e2824d11665d6ee528207&quot;),</span><br><span class="line">    	&quot;age&quot; : -1,</span><br><span class="line">    	&quot;name&quot; : &quot;zhao&quot;,</span><br><span class="line">    	&quot;hostdown&quot; : &quot;weihai&quot;,</span><br><span class="line">    	&quot;friend&quot; : [</span><br><span class="line">    		&quot;liao&quot;,</span><br><span class="line">    		&quot;bao&quot;,</span><br><span class="line">    		&quot;meng&quot;</span><br><span class="line">    	]</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">2.\*（不熟悉）限制数组最大长度```$slice``` ,值为负整数</span><br><span class="line"></span><br><span class="line">3.\*（不熟悉）排序```$sort</span><br></pre></td></tr></table></figure></p>
+<p>4.*（不熟悉）将数组作为数据集使用<br><code>$ne</code>、<code>$addToSet</code></p>
+<h4 id="4-24修改器速度"><a href="#4-24修改器速度" class="headerlink" title="4.24修改器速度"></a>4.24修改器速度</h4><p>原地修改快，文档变大的修改，由于原位置放不下新文档，需要移至末尾位置，会比较慢。</p>
+<h3 id="4-3upsert"><a href="#4-3upsert" class="headerlink" title="4.3upsert"></a>4.3<code>upsert</code></h3><p>一种特殊的更新，如果没找到符合要求的文档，就根据查找条件与更新条件新建一个文档。<br>使用方法：<br><code>update()</code>函数的第三个参数即为upsert选项<br><code>db.test.update({&quot;age&quot;:1,&quot;name&quot;:&quot;wu&quot;},{&quot;$inc&quot;:{&quot;num&quot;:1}},true)</code></p>
+<h3 id="4-4更新多个文档"><a href="#4-4更新多个文档" class="headerlink" title="4.4更新多个文档"></a>4.4更新多个文档</h3><p><code>update()</code>的第四个参数设置为true会更新所有匹配到的文档。</p>
+<h4 id="4-5返回被更新的文档"><a href="#4-5返回被更新的文档" class="headerlink" title="4.5返回被更新的文档"></a>4.5返回被更新的文档</h4><p><code>findAndModify()</code>会返回你匹配到的文档，并更新或删除此文档（只有此两种操作且只能有这两种操作之一），<strong>由于mongo是线程安全的</strong>，所以此方法可以解决多线程同时操作数据库的问题。</p>
+<pre><code>db.collection.findAndModify({
+    query: &lt;document&gt;,
+    sort: &lt;document&gt;,
+    remove: &lt;boolean&gt;,
+    update: &lt;document&gt;,
+    new: &lt;boolean&gt;,
+    fields: &lt;document&gt;,
+    upsert: &lt;boolean&gt;,
+    bypassDocumentValidation: &lt;boolean&gt;,
+    writeConcern: &lt;document&gt;
+});
+</code></pre><p>参数：</p>
+<ul>
+<li><code>query</code>:查询文档，用于检索文档的条件。</li>
+<li><code>sort</code>:排序结果的条件。</li>
+<li><code>remove</code>:布尔类型，表示是否删除文档。</li>
+<li><code>update</code>:修改器文档。</li>
+<li><code>new</code>:布尔类型，表示返回更新后的文档还是更新前的文档，默认为更新前。</li>
+<li><code>fields</code>:文档中需要返回的字段（可选）。</li>
+<li><code>upsert</code>:布尔类型，true表示这是一个upsert。 </li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/12/MongoDB3-4安装及卸载/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1016,7 +1270,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
