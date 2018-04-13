@@ -333,8 +333,7 @@
       
         
           
-            <p>[toc]</p>
-<h2 id="1-插入"><a href="#1-插入" class="headerlink" title="1.插入"></a>1.插入</h2><pre><code>db.collection.insert(
+            <h2 id="1-插入"><a href="#1-插入" class="headerlink" title="1.插入"></a>1.插入</h2><pre><code>db.collection.insert(
    &lt;document or array of documents&gt;,
    {
      writeConcern: &lt;document&gt;,
@@ -393,10 +392,9 @@
 <p><code>{&quot;x&quot;:15}</code>中<code>x</code>的值不是数组类型，所以没有返回，<code>{&quot;x&quot;:[5,25]}</code>中没有符合所有条件的元素，所以没有被返回。</p>
 </li>
 </ol>
-<p>###2.4 查询结果处理选项</p>
-<p>####2.41 <code>limit</code>限制返回结果数量<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;db.test.find().limit(<span class="number">3</span>) <span class="comment">//只返回3个结果，如果结果不到3个，则返回匹配数量的结果</span></span><br></pre></td></tr></table></figure></p>
-<p>####2.42 <code>skip</code>跳过部分结果<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;db.test.find().skip(<span class="number">3</span>) <span class="comment">//略过前3个文档，返回余下的文档，如果文档数不足3个，则不返回结果</span></span><br></pre></td></tr></table></figure></p>
-<p>####2.43 <code>sort</code>结果排序<br><code>sort</code>接受键值对作为参数，键为需要排序的字段，值为排序方向，1为正向，-1为反向。<br>如果指定了多个键，则按照这些键被指定的顺序排序<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;db.test.find().sort(&#123;<span class="string">"username"</span>:<span class="number">1</span>,<span class="string">"age"</span>:<span class="number">-1</span>&#125;) <span class="comment">//按照username正向，age反向排序</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="2-4-查询结果处理选项"><a href="#2-4-查询结果处理选项" class="headerlink" title="2.4 查询结果处理选项"></a>2.4 查询结果处理选项</h3><h4 id="2-41-limit限制返回结果数量"><a href="#2-41-limit限制返回结果数量" class="headerlink" title="2.41 limit限制返回结果数量"></a>2.41 <code>limit</code>限制返回结果数量</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;db.test.find().limit(<span class="number">3</span>) <span class="comment">//只返回3个结果，如果结果不到3个，则返回匹配数量的结果</span></span><br></pre></td></tr></table></figure>
+<h4 id="2-42-skip跳过部分结果"><a href="#2-42-skip跳过部分结果" class="headerlink" title="2.42 skip跳过部分结果"></a>2.42 <code>skip</code>跳过部分结果</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;db.test.find().skip(<span class="number">3</span>) <span class="comment">//略过前3个文档，返回余下的文档，如果文档数不足3个，则不返回结果</span></span><br></pre></td></tr></table></figure>
+<h4 id="2-43-sort结果排序"><a href="#2-43-sort结果排序" class="headerlink" title="2.43 sort结果排序"></a>2.43 <code>sort</code>结果排序</h4><p><code>sort</code>接受键值对作为参数，键为需要排序的字段，值为排序方向，1为正向，-1为反向。<br>如果指定了多个键，则按照这些键被指定的顺序排序<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;db.test.find().sort(&#123;<span class="string">"username"</span>:<span class="number">1</span>,<span class="string">"age"</span>:<span class="number">-1</span>&#125;) <span class="comment">//按照username正向，age反向排序</span></span><br></pre></td></tr></table></figure></p>
 <blockquote>
 <p><strong><em>上述几个函数可同时使用，顺序无所谓</em></strong></p>
 </blockquote>
@@ -1283,7 +1281,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">2</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

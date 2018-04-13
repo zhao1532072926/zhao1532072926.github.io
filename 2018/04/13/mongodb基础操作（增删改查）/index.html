@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="mongodb," />
 
 
 
@@ -81,17 +81,18 @@
 
 
 
-<meta name="description" content="[toc] 1.插入db.collection.insert(    &amp;lt;document or array of documents&amp;gt;,    {      writeConcern: &amp;lt;document&amp;gt;,      ordered: &amp;lt;boolean&amp;gt;    } )  第一个参数为要插入的文档或文档数组 writeConcern：与safe write有关，">
+<meta name="description" content="1.插入db.collection.insert(    &amp;lt;document or array of documents&amp;gt;,    {      writeConcern: &amp;lt;document&amp;gt;,      ordered: &amp;lt;boolean&amp;gt;    } )  第一个参数为要插入的文档或文档数组 writeConcern：与safe write有关，暂未了解 o">
+<meta name="keywords" content="mongodb">
 <meta property="og:type" content="article">
 <meta property="og:title" content="mongodb基础操作（增删改查）">
 <meta property="og:url" content="http://yoursite.com/2018/04/13/mongodb基础操作（增删改查）/index.html">
 <meta property="og:site_name" content="林鼠小窝">
-<meta property="og:description" content="[toc] 1.插入db.collection.insert(    &amp;lt;document or array of documents&amp;gt;,    {      writeConcern: &amp;lt;document&amp;gt;,      ordered: &amp;lt;boolean&amp;gt;    } )  第一个参数为要插入的文档或文档数组 writeConcern：与safe write有关，">
+<meta property="og:description" content="1.插入db.collection.insert(    &amp;lt;document or array of documents&amp;gt;,    {      writeConcern: &amp;lt;document&amp;gt;,      ordered: &amp;lt;boolean&amp;gt;    } )  第一个参数为要插入的文档或文档数组 writeConcern：与safe write有关，暂未了解 o">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-04-13T02:20:32.744Z">
+<meta property="og:updated_time" content="2018-04-13T02:29:01.421Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mongodb基础操作（增删改查）">
-<meta name="twitter:description" content="[toc] 1.插入db.collection.insert(    &amp;lt;document or array of documents&amp;gt;,    {      writeConcern: &amp;lt;document&amp;gt;,      ordered: &amp;lt;boolean&amp;gt;    } )  第一个参数为要插入的文档或文档数组 writeConcern：与safe write有关，">
+<meta name="twitter:description" content="1.插入db.collection.insert(    &amp;lt;document or array of documents&amp;gt;,    {      writeConcern: &amp;lt;document&amp;gt;,      ordered: &amp;lt;boolean&amp;gt;    } )  第一个参数为要插入的文档或文档数组 writeConcern：与safe write有关，暂未了解 o">
 
 
 
@@ -332,8 +333,7 @@
       
 
       
-        <p>[toc]</p>
-<h2 id="1-插入"><a href="#1-插入" class="headerlink" title="1.插入"></a>1.插入</h2><pre><code>db.collection.insert(
+        <h2 id="1-插入"><a href="#1-插入" class="headerlink" title="1.插入"></a>1.插入</h2><pre><code>db.collection.insert(
    &lt;document or array of documents&gt;,
    {
      writeConcern: &lt;document&gt;,
@@ -392,10 +392,9 @@
 <p><code>{&quot;x&quot;:15}</code>中<code>x</code>的值不是数组类型，所以没有返回，<code>{&quot;x&quot;:[5,25]}</code>中没有符合所有条件的元素，所以没有被返回。</p>
 </li>
 </ol>
-<p>###2.4 查询结果处理选项</p>
-<p>####2.41 <code>limit</code>限制返回结果数量<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;db.test.find().limit(<span class="number">3</span>) <span class="comment">//只返回3个结果，如果结果不到3个，则返回匹配数量的结果</span></span><br></pre></td></tr></table></figure></p>
-<p>####2.42 <code>skip</code>跳过部分结果<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;db.test.find().skip(<span class="number">3</span>) <span class="comment">//略过前3个文档，返回余下的文档，如果文档数不足3个，则不返回结果</span></span><br></pre></td></tr></table></figure></p>
-<p>####2.43 <code>sort</code>结果排序<br><code>sort</code>接受键值对作为参数，键为需要排序的字段，值为排序方向，1为正向，-1为反向。<br>如果指定了多个键，则按照这些键被指定的顺序排序<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;db.test.find().sort(&#123;<span class="string">"username"</span>:<span class="number">1</span>,<span class="string">"age"</span>:<span class="number">-1</span>&#125;) <span class="comment">//按照username正向，age反向排序</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="2-4-查询结果处理选项"><a href="#2-4-查询结果处理选项" class="headerlink" title="2.4 查询结果处理选项"></a>2.4 查询结果处理选项</h3><h4 id="2-41-limit限制返回结果数量"><a href="#2-41-limit限制返回结果数量" class="headerlink" title="2.41 limit限制返回结果数量"></a>2.41 <code>limit</code>限制返回结果数量</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;db.test.find().limit(<span class="number">3</span>) <span class="comment">//只返回3个结果，如果结果不到3个，则返回匹配数量的结果</span></span><br></pre></td></tr></table></figure>
+<h4 id="2-42-skip跳过部分结果"><a href="#2-42-skip跳过部分结果" class="headerlink" title="2.42 skip跳过部分结果"></a>2.42 <code>skip</code>跳过部分结果</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;db.test.find().skip(<span class="number">3</span>) <span class="comment">//略过前3个文档，返回余下的文档，如果文档数不足3个，则不返回结果</span></span><br></pre></td></tr></table></figure>
+<h4 id="2-43-sort结果排序"><a href="#2-43-sort结果排序" class="headerlink" title="2.43 sort结果排序"></a>2.43 <code>sort</code>结果排序</h4><p><code>sort</code>接受键值对作为参数，键为需要排序的字段，值为排序方向，1为正向，-1为反向。<br>如果指定了多个键，则按照这些键被指定的顺序排序<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;db.test.find().sort(&#123;<span class="string">"username"</span>:<span class="number">1</span>,<span class="string">"age"</span>:<span class="number">-1</span>&#125;) <span class="comment">//按照username正向，age反向排序</span></span><br></pre></td></tr></table></figure></p>
 <blockquote>
 <p><strong><em>上述几个函数可同时使用，顺序无所谓</em></strong></p>
 </blockquote>
@@ -499,6 +498,12 @@
     
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/mongodb/" rel="tag"># mongodb</a>
+          
+        </div>
       
 
       
@@ -616,7 +621,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">2</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -656,7 +661,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-插入"><span class="nav-number">1.</span> <span class="nav-text">1.插入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-查询"><span class="nav-number">2.</span> <span class="nav-text">2.查询</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-参数介绍"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 参数介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-基础查询条件"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 基础查询条件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-21-比较操作符"><span class="nav-number">2.2.1.</span> <span class="nav-text">2.21 比较操作符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-22-OR查询"><span class="nav-number">2.2.2.</span> <span class="nav-text">2.22 OR查询</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-23-not操作符"><span class="nav-number">2.2.3.</span> <span class="nav-text">2.23 $not操作符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-24-and操作符"><span class="nav-number">2.2.4.</span> <span class="nav-text">2.24 $and操作符</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-特殊类型的查询条件"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 特殊类型的查询条件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-31-null"><span class="nav-number">2.3.1.</span> <span class="nav-text">2.31 null</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-32-正则表达式"><span class="nav-number">2.3.2.</span> <span class="nav-text">2.32 正则表达式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-33-查询数组"><span class="nav-number">2.3.3.</span> <span class="nav-text">2.33 查询数组</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-删除"><span class="nav-number">3.</span> <span class="nav-text">3.删除</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-更新"><span class="nav-number">4.</span> <span class="nav-text">4.更新</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1文档替换"><span class="nav-number">4.1.</span> <span class="nav-text">4.1文档替换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2使用修改器"><span class="nav-number">4.2.</span> <span class="nav-text">4.2使用修改器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-24修改器速度"><span class="nav-number">4.2.1.</span> <span class="nav-text">4.24修改器速度</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3upsert"><span class="nav-number">4.3.</span> <span class="nav-text">4.3upsert</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-4更新多个文档"><span class="nav-number">4.4.</span> <span class="nav-text">4.4更新多个文档</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-5返回被更新的文档"><span class="nav-number">4.4.1.</span> <span class="nav-text">4.5返回被更新的文档</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-插入"><span class="nav-number">1.</span> <span class="nav-text">1.插入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-查询"><span class="nav-number">2.</span> <span class="nav-text">2.查询</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-参数介绍"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 参数介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-基础查询条件"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 基础查询条件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-21-比较操作符"><span class="nav-number">2.2.1.</span> <span class="nav-text">2.21 比较操作符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-22-OR查询"><span class="nav-number">2.2.2.</span> <span class="nav-text">2.22 OR查询</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-23-not操作符"><span class="nav-number">2.2.3.</span> <span class="nav-text">2.23 $not操作符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-24-and操作符"><span class="nav-number">2.2.4.</span> <span class="nav-text">2.24 $and操作符</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-特殊类型的查询条件"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 特殊类型的查询条件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-31-null"><span class="nav-number">2.3.1.</span> <span class="nav-text">2.31 null</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-32-正则表达式"><span class="nav-number">2.3.2.</span> <span class="nav-text">2.32 正则表达式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-33-查询数组"><span class="nav-number">2.3.3.</span> <span class="nav-text">2.33 查询数组</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-查询结果处理选项"><span class="nav-number">2.4.</span> <span class="nav-text">2.4 查询结果处理选项</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-41-limit限制返回结果数量"><span class="nav-number">2.4.1.</span> <span class="nav-text">2.41 limit限制返回结果数量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-42-skip跳过部分结果"><span class="nav-number">2.4.2.</span> <span class="nav-text">2.42 skip跳过部分结果</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-43-sort结果排序"><span class="nav-number">2.4.3.</span> <span class="nav-text">2.43 sort结果排序</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-删除"><span class="nav-number">3.</span> <span class="nav-text">3.删除</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-更新"><span class="nav-number">4.</span> <span class="nav-text">4.更新</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1文档替换"><span class="nav-number">4.1.</span> <span class="nav-text">4.1文档替换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2使用修改器"><span class="nav-number">4.2.</span> <span class="nav-text">4.2使用修改器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-24修改器速度"><span class="nav-number">4.2.1.</span> <span class="nav-text">4.24修改器速度</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3upsert"><span class="nav-number">4.3.</span> <span class="nav-text">4.3upsert</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-4更新多个文档"><span class="nav-number">4.4.</span> <span class="nav-text">4.4更新多个文档</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-5返回被更新的文档"><span class="nav-number">4.4.1.</span> <span class="nav-text">4.5返回被更新的文档</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
